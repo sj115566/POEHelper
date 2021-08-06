@@ -1,6 +1,6 @@
 ﻿;-----MainWindow--START---;
 RunWindow(){
-    WindowTitle = POE小幫手-128
+    WindowTitle = POE小幫手-130
     CustomColor =  White 
     opacity = 255
     opacityPercent = 50
