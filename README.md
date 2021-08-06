@@ -5,3 +5,4 @@
  [可以參考這裡](https://www.ptt.cc/bbs/PathofExile/M.1536799446.A.BB1.html)
 
 > 本腳本不會讀取/修改記憶體內容
+=======
