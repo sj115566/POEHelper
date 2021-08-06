@@ -35,4 +35,24 @@
 				,	obj_keyList[k] := "", %k% := v
 		}
 	}
+    ; =================================
+	;		自訂按鍵綁定功能
+	; =================================
+    if re
+        Hotkey, % re, Reply
+    if i
+        Hotkey, % i, Invite
+    if h
+        Hotkey, % h, Hideout
+    if a
+        Hotkey, % a, Afk
+    if tr
+        Hotkey, % tr, Trade
+    if th
+        Hotkey, % th, Thanks
+    if l
+        Hotkey, % l, FastLogOut
+    if o
+        Hotkey, % o, OosCommand
+
 }
