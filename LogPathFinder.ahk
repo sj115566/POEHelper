@@ -30,5 +30,3 @@
             MsgBox 0x10, LogPathFinder - Canceled!, 取消操作
             Return
         }
-    }
-}

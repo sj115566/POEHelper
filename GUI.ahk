@@ -35,7 +35,21 @@ RunWindow(){
     
     GuiEscape:
     GuiClose:
+<<<<<<< HEAD
     ReadSettings( Obj_DefaultSetting )
+=======
+    ReadSettings( { re          : ""
+                  , i           : ""
+                  , h           : ""
+                  , a           : ""
+                  , tr          : ""
+                  , th          : ""
+                  , l           : ""
+                  , o           : ""
+                  , LogPath     : "C:\Program Files (x86)\Garena\32808"              
+                  , str_Wait     : ""
+                  , str_Thank     : "" } )
+>>>>>>> 5f8e08f5763d9730d580c2f45a95d4e5673496c8
     ExitApp
 
 ;-----MainWindow END-----;
@@ -43,7 +57,11 @@ RunWindow(){
 ;-----編輯視窗--START---;
     EditWindow:
     {
+<<<<<<< HEAD
         ;TurnOffAllHotkey()
+=======
+        TurnOffAllHotkey()
+>>>>>>> 5f8e08f5763d9730d580c2f45a95d4e5673496c8
         Gui,EditGui:+Owner -SysMenu +AlwaysOnTop
         Gui EditGui:Font, s9 w500, Segoe UI
         Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
@@ -131,8 +149,8 @@ RunWindow(){
     EditLogPath:
     {
         LogPathFinder()
+        LogPath()
         Return
-    
     }
 ;-----功能--END---;
 }

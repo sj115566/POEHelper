@@ -98,9 +98,4 @@ save(){
     Return
 }
 
-CheckLogPath(){
-    
-}
-
-
 ;-----function--END---;
