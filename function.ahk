@@ -1,6 +1,6 @@
 ﻿;-----function--START--;
 getstr(i){
-    Array :={"Tra": "/交易 ", "Log": "/exit", "Oos": "/oos", "Afk": "/afk", "Hid": "/hideout", "Rem": "/剩餘怪物", "Inv": "/邀請 ", "Thx": str_Thank, "Wait": str_Wait}
+    Array :={"Tra": "/交易 ", "Log": "/exit", "Oos": "/oos", "Afk": "/afk", "Hid": "/hideout", "Rem": "/剩餘怪物", "Inv": "/邀請 ", "Thx": Str_Thank, "Wait": Str_Wait}
     Return % Array[i]
 }
 
@@ -89,11 +89,18 @@ CheckRemaining(){
     Send % Copy("Rem")
     return
 }
-;-----function--END---;
+
 save(){
-    MsgBox, 270336 , 儲存, 工作完成。,0.5
+    MsgBox, 270336 , 儲存熱鍵, 儲存成功!`n即將自動重載...,0.75
     Gui, Submit, NoHide
     Gui Destroy
     Reload
     Return
 }
+
+CheckLogPath(){
+    
+}
+
+
+;-----function--END---;

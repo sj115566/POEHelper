@@ -1,4 +1,16 @@
-﻿ReadSettings(obj_default = "") {
+﻿Obj_DefaultSetting:={   Key_ReplyWait   : "F2"
+                      , Key_Invite      : "F3"
+                      , Key_Hideout     : "F6"
+                      , Key_AFK         : "F11"
+                      , Key_Tradewith   : "F5"
+                      , Key_ReplyThank  : "F4"
+                      , Key_Logout      : "F7"
+                      , Key_OOS         : "F12"
+                      , LogPath         : "C:\Program Files (x86)\Garena\32808"              
+                      , Str_Wait        : "稍等喔~"
+                      , Str_Thank       : "謝謝~" }
+                      
+ReadSettings(obj_default = "") {
 	static iniFile := SubStr(A_ScriptFullPath, 1, -StrLen(A_ScriptName)) "setting.ini"
 	static obj_keyList := {}
 	global
@@ -37,22 +49,22 @@
 	}
     ; =================================
 	;		自訂按鍵綁定功能
-	; =================================
-    if re
-        Hotkey, % re, Reply
-    if i
-        Hotkey, % i, Invite
-    if h
-        Hotkey, % h, Hideout
-    if a
-        Hotkey, % a, Afk
-    if tr
-        Hotkey, % tr, Trade
-    if th
-        Hotkey, % th, Thanks
-    if l
-        Hotkey, % l, FastLogOut
-    if o
-        Hotkey, % o, OosCommand
+	; =================================     
+    if Key_ReplyWait
+        Hotkey, % Key_ReplyWait, Reply
+    if Key_Invite
+        Hotkey, % Key_Invite, Invite
+    if Key_Hideout
+        Hotkey, % Key_Hideout, Hideout
+    if Key_AFK
+        Hotkey, % Key_AFK, Afk
+    if Key_Tradewith
+        Hotkey, % Key_Tradewith, Trade
+    if Key_ReplyThank
+        Hotkey, % Key_ReplyThank, Thanks
+    if Key_Logout
+        Hotkey, % Key_Logout, FastLogOut
+    if Key_OOS
+        Hotkey, % Key_OOS, OosCommand
 
 }
