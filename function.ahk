@@ -98,9 +98,12 @@ save(){
     Return
 }
 
+<<<<<<< HEAD
 CheckLogPath(){
     
 }
 
 
 ;-----function--END---;
+=======
+>>>>>>> 5f8e08f5763d9730d580c2f45a95d4e5673496c8
