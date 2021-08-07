@@ -1,11 +1,11 @@
 ﻿;-----MainWindow--START---;
 RunWindow(){
-    WindowTitle = POE小幫手-130
+    WindowTitle = POE小幫手-131
     CustomColor =  White 
     opacity = 255
     opacityPercent = 50
     
-    Gui +AlwaysOnTop +LastFound +OwnDialogs
+    Gui +LastFound +OwnDialogs
     WinSet, Transparent,%opacity% 
     Gui Color, %CustomColor%
     Gui Font, s9, Segoe UI
@@ -19,6 +19,7 @@ RunWindow(){
     Gui Add, Button, gFastLogOut    x21  y301 w130 h36, 快速登出
     Gui Add, Button, gOosCommand    x21  y347 w130 h36, OOS
     Gui Add, Button, gEditWindow    x310 y255 w100 h36 , 編輯熱鍵
+    Gui Add, Button, gEditLogPath    x310 y209 w100 h36 , 編輯Log路徑
     Gui Add, Text, x310 y325 w100 h36, 調整視窗透明度
     Gui Add, Slider, vSldr gopacity x300 y352 w120 h32, %opacity%
     Gui Add, Text, x155 y35  w70 h21 Center ,% re
@@ -35,15 +36,16 @@ RunWindow(){
     GuiEscape:
     GuiClose:
     ReadSettings( { re          : ""
-              , i           : ""
-              , h           : ""
-              , a           : ""
-              , tr          : ""
-              , th          : ""
-              , l           : ""
-              , o           : ""
-              , strWait    : ""
-              ||} )
+                  , i           : ""
+                  , h           : ""
+                  , a           : ""
+                  , tr          : ""
+                  , th          : ""
+                  , l           : ""
+                  , o           : ""
+                  , LogPath     : "C:\Program Files (x86)\Garena\32808"              
+                  , str_Wait     : ""
+                  , str_Thank     : "" } )
     ExitApp
 
 ;-----MainWindow END-----;
@@ -51,6 +53,7 @@ RunWindow(){
 ;-----編輯視窗--START---;
     EditWindow:
     {
+        TurnOffAllHotkey()
         Gui,EditGui:+Owner -SysMenu +AlwaysOnTop
         Gui EditGui:Font, s9 w500, Segoe UI
         Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
@@ -133,6 +136,13 @@ RunWindow(){
     {
         OosCommand()
         Return
+    }
+    
+    EditLogPath:
+    {
+        LogPath()
+        Return
+    
     }
 ;-----功能--END---;
 }
