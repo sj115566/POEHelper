@@ -1,11 +1,14 @@
 ﻿;-----MainWindow--START---;
-RunWindow(){
+window:
+{
+    ReadSettings( Obj_DefaultSetting )
     WindowTitle = POE小幫手-131
     CustomColor =  White 
     opacity = 255
     opacityPercent = 50
-    
-    Gui +LastFound +OwnDialogs
+
+    Gui +LastFound +OwnDialogs +LabelMain
+    Gui Main:Default
     WinSet, Transparent,%opacity% 
     Gui Color, %CustomColor%
     Gui Font, s9, Segoe UI
@@ -18,139 +21,134 @@ RunWindow(){
     Gui Add, Button, gThanks        x21  y255 w130 h36, 自動回覆：感謝
     Gui Add, Button, gFastLogOut    x21  y301 w130 h36, 快速登出
     Gui Add, Button, gOosCommand    x21  y347 w130 h36, OOS
+    Gui Add, Button, gTradePartner  x310 y25  w100 h36, 交易夥伴
     Gui Add, Button, gEditWindow    x310 y255 w100 h36 , 編輯熱鍵
     Gui Add, Button, gEditLogPath    x310 y209 w100 h36 , 編輯Log路徑
     Gui Add, Text, x310 y325 w100 h36, 調整視窗透明度
     Gui Add, Slider, vSldr gopacity x300 y352 w120 h32, %opacity%
-    Gui Add, Text, x155 y35  w70 h21 Center ,% Key_ReplyWait
-    Gui Add, Text, x155 y81  w70 h21 Center ,% Key_Invite
-    Gui Add, Text, x155 y127 w70 h21 Center ,% Key_Hideout
-    Gui Add, Text, x155 y177 w70 h21 Center ,% Key_AFK
-    Gui Add, Text, x155 y220 w70 h21 Center ,% Key_Tradewith
-    Gui Add, Text, x155 y264 w70 h21 Center ,% Key_ReplyThank
-    Gui Add, Text, x155 y312 w70 h21 Center ,% Key_Logout
-    Gui Add, Text, x155 y356 w70 h21 Center ,% Key_OOS
+    Gui Add, Text, x155 y35  w70 h21 Center ,%Key_ReplyWait%
+    Gui Add, Text, x155 y81  w70 h21 Center ,%Key_Invite%
+    Gui Add, Text, x155 y127 w70 h21 Center ,%Key_Hideout%
+    Gui Add, Text, x155 y177 w70 h21 Center ,%Key_AFK%
+    Gui Add, Text, x155 y220 w70 h21 Center ,%Key_Tradewith%
+    Gui Add, Text, x155 y264 w70 h21 Center ,%Key_ReplyThank%
+    Gui Add, Text, x155 y312 w70 h21 Center ,%Key_Logout%
+    Gui Add, Text, x155 y356 w70 h21 Center ,%Key_OOS%
     Gui Show, w439 h409, %WindowTitle%
     Return
     
     GuiEscape:
     GuiClose:
-<<<<<<< HEAD
     ReadSettings( Obj_DefaultSetting )
-=======
-    ReadSettings( { re          : ""
-                  , i           : ""
-                  , h           : ""
-                  , a           : ""
-                  , tr          : ""
-                  , th          : ""
-                  , l           : ""
-                  , o           : ""
-                  , LogPath     : "C:\Program Files (x86)\Garena\32808"              
-                  , str_Wait     : ""
-                  , str_Thank     : "" } )
->>>>>>> 5f8e08f5763d9730d580c2f45a95d4e5673496c8
     ExitApp
 
 ;-----MainWindow END-----;
+}
 
 ;-----編輯視窗--START---;
-    EditWindow:
-    {
-<<<<<<< HEAD
-        ;TurnOffAllHotkey()
-=======
-        TurnOffAllHotkey()
->>>>>>> 5f8e08f5763d9730d580c2f45a95d4e5673496c8
-        Gui,EditGui:+Owner -SysMenu +AlwaysOnTop
-        Gui EditGui:Font, s9 w500, Segoe UI
-        Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
-        Gui EditGui:Add, Text,x21  y80  w130 h36, 邀請組隊
-        Gui EditGui:Add, Text,x21  y127 w130 h36, 回藏身處
-        Gui EditGui:Add, Text,x21  y173 w130 h36, AFK
-        Gui EditGui:Add, Text,x21  y219 w130 h36, 交易
-        Gui EditGui:Add, Text,x21  y265 w130 h36, 自動回覆：感謝
-        Gui EditGui:Add, Text,x21  y311 w130 h36, 快速登出
-        Gui EditGui:Add, Text,x21  y356 w130 h36, OOS
-        Gui EditGui:Add, Button,x310 y301 w100 h36 gSave , 儲存
-        Gui EditGui:Add, Hotkey, x174 y31  w70 h21 vKey_ReplyWait,% Key_ReplyWait
-        Gui EditGui:Add, Hotkey, x174 y77  w70 h21 vKey_Invite,% Key_Invite
-        Gui EditGui:Add, Hotkey, x174 y123 w70 h21 vKey_Hideout,% Key_Hideout
-        Gui EditGui:Add, Hotkey, x174 y169 w70 h21 vKey_AFK,% Key_AFK
-        Gui EditGui:Add, Hotkey, x174 y215 w70 h21 vKey_Tradewith,% Key_Tradewith
-        Gui EditGui:Add, Hotkey, x174 y261 w70 h21 vKey_ReplyThank,% Key_ReplyThank
-        Gui EditGui:Add, Hotkey, x174 y307 w70 h21 vKey_Logout,% Key_Logout
-        Gui EditGui:Add, Hotkey, x174 y353 w70 h21 vKey_OOS,% Key_OOS
-        Gui EditGui:Add, Edit,Limit x260 y31 w150 h21 Str_Wait,% Str_Wait
-        Gui EditGui:Add, Edit,Limit x260 y261 w150 h21 vStr_Thank,% Str_Thank
-        Gui,EditGui:show,w439 h409,Edithotkey
-        Return 
-    }
+EditWindow:
+{
+    TurnOffHotKey()
+    Gui,EditGui:+Owner -SysMenu +AlwaysOnTop
+    Gui EditGui:Font, s9 w500, Segoe UI
+    Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
+    Gui EditGui:Add, Text,x21  y80  w130 h36, 邀請組隊
+    Gui EditGui:Add, Text,x21  y127 w130 h36, 回藏身處
+    Gui EditGui:Add, Text,x21  y173 w130 h36, AFK
+    Gui EditGui:Add, Text,x21  y219 w130 h36, 交易
+    Gui EditGui:Add, Text,x21  y265 w130 h36, 自動回覆：感謝
+    Gui EditGui:Add, Text,x21  y311 w130 h36, 快速登出
+    Gui EditGui:Add, Text,x21  y356 w130 h36, OOS
+    Gui EditGui:Add, Button,x310 y301 w100 h36 gSave , 儲存
+    Gui EditGui:Add, Hotkey, x174 y31  w70 h21 vKey_ReplyWait,% Key_ReplyWait
+    Gui EditGui:Add, Hotkey, x174 y77  w70 h21 vKey_Invite,% Key_Invite
+    Gui EditGui:Add, Hotkey, x174 y123 w70 h21 vKey_Hideout,% Key_Hideout
+    Gui EditGui:Add, Hotkey, x174 y169 w70 h21 vKey_AFK,% Key_AFK
+    Gui EditGui:Add, Hotkey, x174 y215 w70 h21 vKey_Tradewith,% Key_Tradewith
+    Gui EditGui:Add, Hotkey, x174 y261 w70 h21 vKey_ReplyThank,% Key_ReplyThank
+    Gui EditGui:Add, Hotkey, x174 y307 w70 h21 vKey_Logout,% Key_Logout
+    Gui EditGui:Add, Hotkey, x174 y353 w70 h21 vKey_OOS,% Key_OOS
+    Gui EditGui:Add, Edit,Limit x260 y31 w150 h21 vStr_Wait,% Str_Wait
+    Gui EditGui:Add, Edit,Limit x260 y261 w150 h21 vStr_Thank,% Str_Thank
+    Gui,EditGui:show,w439 h409,Edithotkey
+    Return 
+    
+    EditGuiGuiClose:
+    Gosub Save
+    Return 
+}
 ;-----編輯視窗--END---;
+
+;-----交易夥伴--START---;
+TradePartner:
+{
+    #Include %A_ScriptDir%\\TradePartner.ahk
+    Return
+}
+;-----交易夥伴--END---;
+
 ;-----透明度調整--START---;
-    opacity:
-    {
-        opacity := round(((sldr*255)/100))+30
-        Winset Transparent, %opacity%
-        Return
-    }
+opacity:
+{
+    opacity := round(((sldr*255)/100))+30
+    Winset Transparent, %opacity%
+    Return
+}
 ;-----透明度調整--END---;
 ;-----功能--START---;
-    Save:
-    {
-        save()
-        Return
-    }
-    Reply:
-    {
-        Reply()
-        Return
-    }
-
-    Invite:
-    {
-        Invite()
-        Return
-    }
-    Hideout:
-    {
-        Hideout()
-        Return
-    }
-    Afk:
-    {
-        Afk()
-        Return
-    }
-    Trade:
-    {
-        Trade()
-        Return
-    }
-
-    Thanks:
-    {
-        Thanks()
-        Return
-    }
-
-    FastLogOut:
-    {
-        FastLogOut()
-        Return
-    }
-
-    OosCommand:
-    {
-        OosCommand()
-        Return
-    }
-    
-    EditLogPath:
-    {
-        LogPathFinder()
-        LogPath()
-        Return
-    }
-;-----功能--END---;
+Save:
+{
+    save()
+    Return
 }
+Reply:
+{
+    Reply()
+    Return
+}
+
+Invite:
+{
+    Invite()
+    Return
+}
+Hideout:
+{
+    Hideout()
+    Return
+}
+Afk:
+{
+    Afk()
+    Return
+}
+Trade:
+{
+    Trade()
+    Return
+}
+
+Thanks:
+{
+    Thanks()
+    Return
+}
+
+FastLogOut:
+{
+    FastLogOut()
+    Return
+}
+
+OosCommand:
+{
+    OosCommand()
+    Return
+}
+
+EditLogPath:
+{
+    LogPathFinder()
+    Return
+}
+;-----功能--END---;

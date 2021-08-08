@@ -9,7 +9,9 @@
                       , LogPath         : "C:\Program Files (x86)\Garena\32808"              
                       , Str_Wait        : "稍等喔~"
                       , Str_Thank       : "謝謝~" }
-                      
+
+ReadSettings(Obj_DefaultSetting)
+
 ReadSettings(obj_default = "") {
 	static iniFile := SubStr(A_ScriptFullPath, 1, -StrLen(A_ScriptName)) "setting.ini"
 	static obj_keyList := {}
@@ -30,7 +32,7 @@ ReadSettings(obj_default = "") {
             IniWrite, % data, % iniFile, Settings
 		Return
 	}
-
+    
 	; =================================
 	;		读取 ini
 	; =================================
@@ -44,12 +46,22 @@ ReadSettings(obj_default = "") {
 				If (  pos := InStr(A_LoopField, "=")  )
 					k := SubStr(A_LoopField, 1, pos-1)
 				,	v := SubStr(A_LoopField, pos+1)
-				,	obj_keyList[k] := "", %k% := v
+				,	obj_keyList[k] := "", %k% := v                
 		}
 	}
     ; =================================
 	;		自訂按鍵綁定功能
-	; =================================     
+	; =================================
+    /*
+    Global KeyFunctionMap :={(Key_ReplyWait):"Reply"
+                            ,(Key_Invite):"Invite"
+                            ,(Key_Hideout):"Hideout"
+                            ,(Key_AFK):"Afk"
+                            ,(Key_Tradewith):"Trade"
+                            ,(Key_ReplyThank):"Thanks"
+                            ,(Key_Logout):"FastLogOut"
+                            ,(Key_OOS):"OosCommand"}
+                            */
     if Key_ReplyWait
         Hotkey, % Key_ReplyWait, Reply
     if Key_Invite
@@ -66,5 +78,4 @@ ReadSettings(obj_default = "") {
         Hotkey, % Key_Logout, FastLogOut
     if Key_OOS
         Hotkey, % Key_OOS, OosCommand
-
 }

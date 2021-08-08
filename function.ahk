@@ -93,8 +93,15 @@ CheckRemaining(){
 save(){
     MsgBox, 270336 , 儲存熱鍵, 儲存成功!`n即將自動重載...,0.75
     Gui, Submit, NoHide
-    Gui Destroy
+;    Gui Destroy
     Reload
+    Return
+}
+
+TurnOffHotKey(){
+
+
+
     Return
 }
 
