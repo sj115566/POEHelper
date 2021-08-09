@@ -10,12 +10,11 @@ BuyerInfo := ["一二三四七八九十一二三四五六","覺醒˙進佔物理
 
 Gui +LabelPartner -AlwaysOnTop +Border +hwndHPartner
 Gui Partner:Default
-/*  include this section for separate debug */
-*/
+/*  include this section for separate debug
 #Include %A_ScriptDir%\\lib\LV_EX.ahk
 Gui , Add, Button, x470 y10 w40 h25 gDebugAddData, add
 Gui , Add, Button, x520 y10 w40 h25 gDebugDel, DDDD
-
+*/
 Gui , Add, GroupBox, x0 y0 w658 h40
 Gui , Font, s14 w700 , Norm
 Gui , Add, Text, x10 y15 w225 h20 vlwaiting, %waiting% 筆交易待處理
