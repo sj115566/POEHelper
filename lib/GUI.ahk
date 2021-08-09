@@ -38,8 +38,7 @@ window:
     Gui Show, w439 h409, %WindowTitle%
     Return
     
-    GuiEscape:
-    GuiClose:
+    MainClose:
     ReadSettings( Obj_DefaultSetting )
     ExitApp
 
