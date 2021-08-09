@@ -1,4 +1,6 @@
-﻿TPTitle:="交易小幫手 - c09y-001"
+﻿#SingleInstance Force
+#NoEnv
+TPTitle:="交易小幫手 - c09y-001"
 VarEvent:=""
 waiting :=0
 IsFold := False
@@ -6,7 +8,7 @@ VFB := "摺疊"
 ColWidth := [20,150,205,95,75,42,42]
 BuyerInfo := ["一二三四七八九十一二三四五六","覺醒˙進佔物理傷害輔助 (L21Q20)","[具4] 左11 上22","300 崇高實"]
 
-Gui +LabelPartner -AlwaysOnTop +Border
+Gui +LabelPartner -AlwaysOnTop +Border +hwndHPartner
 Gui Partner:Default
 /*  include this section for separate debug */
 */
@@ -130,9 +132,17 @@ DelData:
     }
     Return
 }
+OnMessage(0x201, "move_Win")
+move_Win()
+{
+    PostMessage, 0xA1,,,,TPTitle
+    ;PostMessage Msg [, wParam, lParam, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
 
+}
 
 PartnerGuiClose:
+GuiControl Main:Enable ,交易夥伴`n(已開啟)
+GuiControl Main:Text ,交易夥伴`n(已開啟),交易夥伴
 Gui Destroy
 Return
 

@@ -52,30 +52,9 @@ ReadSettings(obj_default = "") {
     ; =================================
 	;		自訂按鍵綁定功能
 	; =================================
-    /*
-    Global KeyFunctionMap :={(Key_ReplyWait):"Reply"
-                            ,(Key_Invite):"Invite"
-                            ,(Key_Hideout):"Hideout"
-                            ,(Key_AFK):"Afk"
-                            ,(Key_Tradewith):"Trade"
-                            ,(Key_ReplyThank):"Thanks"
-                            ,(Key_Logout):"FastLogOut"
-                            ,(Key_OOS):"OosCommand"}
-                            */
-    if Key_ReplyWait
-        Hotkey, % Key_ReplyWait, Reply
-    if Key_Invite
-        Hotkey, % Key_Invite, Invite
-    if Key_Hideout
-        Hotkey, % Key_Hideout, Hideout
-    if Key_AFK
-        Hotkey, % Key_AFK, Afk
-    if Key_Tradewith
-        Hotkey, % Key_Tradewith, Trade
-    if Key_ReplyThank
-        Hotkey, % Key_ReplyThank, Thanks
-    if Key_Logout
-        Hotkey, % Key_Logout, FastLogOut
-    if Key_OOS
-        Hotkey, % Key_OOS, OosCommand
+    KeyList := [Key_ReplyWait,Key_Invite,Key_Hideout,Key_AFK,Key_Tradewith,Key_ReplyThank,Key_Logout,Key_OOS]
+    FeatureList := ["Reply","Invite","Hideout","Afk","Trade","Thanks","FastLogOut","OosCommand"]
+    loop % KeyList.Length()
+        Hotkey ,% KeyList[A_Index] ,% FeatureList[A_Index]
+    
 }

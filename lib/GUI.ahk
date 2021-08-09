@@ -7,8 +7,9 @@ window:
     opacity = 255
     opacityPercent = 50
 
-    Gui +LastFound +OwnDialogs +LabelMain
+    
     Gui Main:Default
+    Gui +LastFound +OwnDialogs +LabelMain
     WinSet, Transparent,%opacity% 
     Gui Color, %CustomColor%
     Gui Font, s9, Segoe UI
@@ -49,7 +50,8 @@ window:
 EditWindow:
 {
     TurnOffHotKey()
-    Gui,EditGui:+Owner -SysMenu +AlwaysOnTop
+    Gui +Disabled
+    Gui,EditGui:+OwnerMain -SysMenu +AlwaysOnTop +OwnDialogs
     Gui EditGui:Font, s9 w500, Segoe UI
     Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
     Gui EditGui:Add, Text,x21  y80  w130 h36, 邀請組隊
@@ -72,17 +74,15 @@ EditWindow:
     Gui EditGui:Add, Edit,Limit x260 y261 w150 h21 vStr_Thank,% Str_Thank
     Gui,EditGui:show,w439 h409,Edithotkey
     Return 
-    
-    EditGuiGuiClose:
-    Gosub Save
-    Return 
 }
 ;-----編輯視窗--END---;
 
 ;-----交易夥伴--START---;
 TradePartner:
 {
-    #Include %A_ScriptDir%\\TradePartner.ahk
+    GuiControl Text, 交易夥伴, 交易夥伴`n(已開啟)
+    GuiControl Disable , 交易夥伴`n(已開啟)
+    #Include %A_ScriptDir%\\lib\TradePartner.ahk
     Return
 }
 ;-----交易夥伴--END---;
@@ -151,4 +151,5 @@ EditLogPath:
     LogPathFinder()
     Return
 }
+
 ;-----功能--END---;
