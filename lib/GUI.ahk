@@ -2,6 +2,7 @@
 window:
 {
     ReadSettings( Obj_DefaultSetting )
+
     WindowTitle = POE小幫手-131
     CustomColor =  White 
     opacity = 255
@@ -82,6 +83,7 @@ TradePartner:
     GuiControl Text, 交易夥伴, 交易夥伴`n(已開啟)
     GuiControl Disable , 交易夥伴`n(已開啟)
     #Include %A_ScriptDir%\\lib\TradePartner.ahk
+    Gui Main:Default
     Return
 }
 ;-----交易夥伴--END---;
