@@ -1,31 +1,18 @@
-﻿#Persistent
-
-
-check:
-{
-    CheckLogChange(LogPath)
-    Return
-}
-
-CheckLogChange(LogFile){
+﻿CheckLogChange(LogFile,ByRef PreviousSize:=0){
     FileEncoding, UTF-8
-    FileGetSize presize, %LogFile%
-    Loop
-    {
-        FileGetSize nowsize, %LogFile%
-        If(nowsize != presize)
-        {
-            MsgBox update from %presize% to %nowsize% .!
-            if (temptext := GetLogData(LogFile)){
-                MsgBox % temptext
-            }
-            presize := nowsize
-        }
-        Sleep 5
+    FileGetSize nowsize, %LogFile%
+    If(nowsize != PreviousSize){
+        BuyerInfo := ""
+        MsgBox update from %PreviousSize% to %nowsize% .!
+        PreviousSize := nowsize
+        If (BuyerInfo := GetLogData(LogFile)){
+            Return True
+        } 
+    } Else{
+        Return False
     }
+    Sleep 5
 }
-
-
 
 GetLogData(POElog,Idlog:="",Itemlog:="",Tablog:="",Poslog:="",Pricelog:="",Infolog:=""){
     FileEncoding, UTF-8
@@ -55,9 +42,9 @@ GetLogData(POElog,Idlog:="",Itemlog:="",Tablog:="",Poslog:="",Pricelog:="",Infol
                         PosInTabText := GetPosInTab(PMContent)
                         Price := GetPrice(PMContent)
                         MatchCount := 0         ;符合項目計數歸0
-                        Return Timeinfo "`n" PlayerID "`n" ItemText "`n" TabText "`n" PosInTabText "`n" Price
+                        Return {Date:Timeinfo.Date,Time:Timeinfo.Time,ID:PlayerID,Item:ItemText,Slashtab:TabText,Pos:PosInTabText,Price:Price}
+;                        Timeinfo "" PlayerID "`n" ItemText "`n" TabText "`n" PosInTabText "`n" Price
                     }
-                    
                 }
             }
         }
@@ -68,7 +55,8 @@ GetTimecode(content,log:=""){
     Date := SubStr(content,1,10)
     Time := SubStr(content,11)
     FileAppend, Date: %Date% `, Time: %Time%`n , %log%
-    Return, "日期: "Date . "`n" . "時間: "Time
+;    Return, "日期: "Date . "`n" . "時間: "Time
+    Return, {Date:Date,Time:Time}
 }
 
 GetPlayerID(content,log:=""){
@@ -83,18 +71,19 @@ GetPlayerID(content,log:=""){
         StringRight, PlayerID, tempidcontent, findColon-findSpace-1
     }
     FileAppend, %PlayerID%`n , %log%
-    Return "玩家ID: "PlayerID
+;    Return "玩家ID: "PlayerID
+    Return, PlayerID
 }
 
 GetItem(content,log:=""){
-
     officialBuyText := OfficialTextList[1]
     officialPriceText := OfficialTextList[2]
     findBuyStart := InStr(content, officialBuyText)+StrLen(officialBuyText)+1
     findBuyEnd := InStr(content, officialPriceText,,findBuyStart)-1
     ItemContent := SubStr(content,findBuyStart,findBuyEnd-findBuyStart)
     FileAppend, %ItemContent%`n , %log%
-    Return "物品名稱: "ItemContent
+;    Return "物品名稱: "ItemContent
+    Return, ItemContent
 }
 
 GetTab(content,log:=""){
@@ -103,7 +92,8 @@ GetTab(content,log:=""){
     findTabEnd := InStr(content,";",,findTabStart)-1
     StashTabContent := SubStr(content, findTabStart, findTabEnd-findTabStart)
     FileAppend, %StashTabContent%`n , %log%
-    Return "位於倉庫頁: "StashTabContent
+;    Return "位於倉庫頁: "StashTabContent
+    Return, StashTabContent
 }
 
 GetPosInTab(content,log:=""){
@@ -112,7 +102,8 @@ GetPosInTab(content,log:=""){
     findPosEnd := InStr(content,")",,findPosStart)
     PosInTabContent := SubStr(content, findPosStart, findPosEnd-findPosStart)
     FileAppend, %PosInTabContent%`n , %log%
-    Return "位置: "PosInTabContent
+;    Return "位置: "PosInTabContent
+    Return, PosInTabContent
 }
 
 GetPrice(content,log:=""){
@@ -121,5 +112,6 @@ GetPrice(content,log:=""){
     findPriceEnd := InStr(content, " ", , findPriceStart, 2)
     PriceContent := SubStr(content, findPriceStart, findPriceEnd-findPriceStart)
     FileAppend, %PriceContent%`n , %log%
-    Return "標價: "PriceContent
+;    Return "標價: "PriceContent
+    Return, PriceContent
 }
