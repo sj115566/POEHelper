@@ -8,24 +8,25 @@ VFB := "摺疊"
 ColWidth := [20,150,205,95,75,42,42]
 BuyerInfo := ["一二三四七八九十一二三四五六","覺醒˙進佔物理傷害輔助 (L21Q20)","[具4] 左11 上22","300 崇高實"]
 
-Gui Partner:+OwnerMain +LabelPartner -AlwaysOnTop +Border +hwndHPartner +OwnDialogs
+
+Gui Partner:+OwnerMain +LabelPartner -AlwaysOnTop
+Gui Partner:Default
 /*  include this section for separate debug
 #Include %A_ScriptDir%\\lib\LV_EX.ahk
 Gui , Add, Button, x470 y10 w40 h25 gDebugAddData, add
 Gui , Add, Button, x520 y10 w40 h25 gDebugDel, DDDD
 */
-Gui Partner:Add, GroupBox, x0 y0 w658 h40
-Gui Partner:Font, s14 w700 , Norm
-Gui Partner:Add, Text, x10 y15 w225 h20 vlwaiting, %waiting% 筆交易待處理
-Gui Partner:Font, s9 w400
-Gui Partner:Add, CheckBox, x250 yp w100 h20 hwndcheck, 邀請後自動刪除
-Gui Partner:Add, Button, x380 y10 w60 h25 ghide&show vVFB, %VFB%
 
-Gui Partner:Add, GroupBox, x0 y40 w658 h200 hwndPLV
-Gui Partner:Add, ListView, xp+5 yp+5 w650 R10 Count10 +VScroll +Grid -LV0x10 -Multi +NoSortHdr +AltSubmit hwndHLV ggevent, #|購買者|物品|倉庫頁及位置|價格|組隊|刪除|
+Gui Add, GroupBox, x0 y0 w658 h40
+Gui Font, s14 w700 , Norm
+Gui Add, Text, x10 y15 w225 h20 vlwaiting, %waiting% 筆交易待處理
+Gui Font, s9 w400
+Gui Add, CheckBox, x250 yp w100 h20 hwndcheck, 邀請後自動刪除
+Gui Add, Button, x380 y10 w60 h25 ghide&show vVFB, %VFB%
+Gui Add, GroupBox, x0 y40 w658 h200 hwndPLV
+Gui Add, ListView, xp+5 yp+5 w650 R10 Count10 +VScroll +Grid -LV0x10 -Multi +NoSortHdr +AltSubmit hwndHLV ggevent, #|購買者|物品|倉庫頁及位置|價格|組隊|刪除|
 LV_SetImageList( DllCall( "ImageList_Create",Int,1, Int,30, Int,0x18, Int,1, Int,1 ), 1 )
-Gui Partner:Show, AutoSize,% TPTitle
-Gosub KeepColW
+Gui Show, AutoSize,% TPTitle
 Return
 
 hide&show:
