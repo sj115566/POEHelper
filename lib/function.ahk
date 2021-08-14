@@ -16,9 +16,40 @@ Copy(y){
     Send {Enter}
     BlockInput Off
     Sleep 50
-    clipboard = %temp%
+    clipboard := temp
     ClipWait,1
     Return
+}
+IDCopy(i){
+    clipboard := i
+    ClipWait,1
+    Return i
+}
+TPPM(i){
+    PM := "@" . i . " "
+    clipboard := PM
+    ClipWait,1
+    Return i
+}
+
+TPInvite(n){
+    IfWinExist Path of Exile
+    {
+        WinActivate Path of Exile
+        tempclipboard := Clipboard
+        cmd := getstr("Inv") IDCopy(n)
+        Clipboard := cmd
+        ClipWait,1
+        Send {Enter}
+        Send ^a
+        Send ^v
+        Send {Enter}
+        Sleep 50
+        Clipboard := tempclipboard
+        ClipWait,1
+        Return
+    }
+    Return 
 }
 
 Thanks(){
@@ -43,6 +74,7 @@ Trade(){
     Return
 }
 
+
 Invite(){
     IfWinExist Path of Exile
     {
@@ -54,6 +86,8 @@ Invite(){
     }
     Return
 }
+
+
 
 Reply(){
     IfWinExist Path of Exile

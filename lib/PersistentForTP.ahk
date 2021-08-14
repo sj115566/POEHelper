@@ -2,10 +2,21 @@
     FileEncoding, UTF-8
     FileGetSize nowsize, %LogFile%
     If(nowsize != PreviousSize){
-        BuyerInfo := ""
-        MsgBox update from %PreviousSize% to %nowsize% .!
+;#For debug        MsgBox update from %PreviousSize% to %nowsize% .!
         PreviousSize := nowsize
-        If (BuyerInfo := GetLogData(LogFile)){
+        If (Data := GetLogData(LogFile)){
+            Global BuyerInfo
+            BuyerInfo.Date.Push(Data.Date)
+            BuyerInfo.Time.Push(Data.Time)
+            BuyerInfo.ID.Push(Data.ID)
+            BuyerInfo.Item.Push(Data.Item)
+            BuyerInfo.Slashtab.Push(Data.Slashtab)
+            BuyerInfo.Pos.Push(Data.Pos)
+            BuyerInfo.Price.Push(Data.Price)
+            For k,v in BuyerInfo
+                Loop v.Length()
+                    if v[A_Index]
+                        v.RemoveAt[A_Index]
             Return True
         } 
     } Else{
@@ -16,35 +27,32 @@
 
 GetLogData(POElog,Idlog:="",Itemlog:="",Tablog:="",Poslog:="",Pricelog:="",Infolog:=""){
     FileEncoding, UTF-8
-    Loop 1
-    {
-        Loop, read, %POElog% 
-        last_line := A_LoopReadLine     
-        if( findAt := InStr(last_line, "@")){               ;如果讀最後一行找到@表示密語才執行
+    Loop, read, %POElog% 
+    last_line := A_LoopReadLine     
+    if( findAt := InStr(last_line, "@")){               ;如果讀最後一行找到@表示密語才執行
 ;#For debug            MsgBox 是密語
-            PMContent := SubStr(last_line, findAt)          ;私訊內容PMContent := @開始往後的文字
-            InfoContent := SubStr(last_line, 1 , 19)        ;時間資訊InfoContent := 從1~19的字元
-            Array_PMSplit := StrSplit(PMContent, A_Space)   ;將私訊內容以空白作為分隔存到Array_PMSplit
-            MatchCount := 0                                 ;計數符合格式的數量
-            Loop, % Array_PMSplit.MaxIndex()        
-            {
-                var := % Array_PMSplit[A_Index]             ;暫存函數var 循環依序列舉出Array_PMSplit的東西
+        PMContent := SubStr(last_line, findAt)          ;私訊內容PMContent := @開始往後的文字
+        InfoContent := SubStr(last_line, 1 , 19)        ;時間資訊InfoContent := 從1~19的字元
+        Array_PMSplit := StrSplit(PMContent, A_Space)   ;將私訊內容以空白作為分隔存到Array_PMSplit
+        MatchCount := 0                                 ;計數符合格式的數量
+        Loop, % Array_PMSplit.MaxIndex()        
+        {
+            var := % Array_PMSplit[A_Index]             ;暫存函數var 循環依序列舉出Array_PMSplit的東西
 ;#For debug                MsgBox % var
-                if var in %OfficialText%                    ;判斷var是否與OfficialText中的string相符 (以,分隔)
-                {
-                    MatchCount += 1                         ;有符合的話 +1
+            if var in %OfficialText%                    ;判斷var是否與OfficialText中的string相符 (以,分隔)
+            {
+                MatchCount += 1                         ;有符合的話 +1
 ;#For debug                    MsgBox % "符合 " . MatchCount . " 項"
-                    if (MatchCount = OfficialTextList.MaxIndex() ){ ;若全部符合
-                        Timeinfo := GetTimecode(InfoContent)
-                        PlayerID := GetPlayerID(PMContent)
-                        ItemText := GetItem(PMContent)
-                        TabText := GetTab(PMContent)
-                        PosInTabText := GetPosInTab(PMContent)
-                        Price := GetPrice(PMContent)
-                        MatchCount := 0         ;符合項目計數歸0
-                        Return {Date:Timeinfo.Date,Time:Timeinfo.Time,ID:PlayerID,Item:ItemText,Slashtab:TabText,Pos:PosInTabText,Price:Price}
+                if (MatchCount = OfficialTextList.MaxIndex() ){ ;若全部符合
+                    Timeinfo := GetTimecode(InfoContent)
+                    PlayerID := GetPlayerID(PMContent)
+                    ItemText := GetItem(PMContent)
+                    TabText := GetTab(PMContent)
+                    PosInTabText := GetPosInTab(PMContent)
+                    Price := GetPrice(PMContent)
+                    MatchCount := 0         ;符合項目計數歸0
+                    Return {Date:Timeinfo.Date, Time:Timeinfo.Time, ID:PlayerID, Item:ItemText, Slashtab:TabText, Pos:PosInTabText, Price:Price }
 ;                        Timeinfo "" PlayerID "`n" ItemText "`n" TabText "`n" PosInTabText "`n" Price
-                    }
                 }
             }
         }
