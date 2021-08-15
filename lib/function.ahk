@@ -20,37 +20,6 @@ Copy(y){
     ClipWait,1
     Return
 }
-IDCopy(i){
-    clipboard := i
-    ClipWait,1
-    Return i
-}
-TPPM(i){
-    PM := "@" . i . " "
-    clipboard := PM
-    ClipWait,1
-    Return i
-}
-
-TPInvite(n){
-    IfWinExist Path of Exile
-    {
-        WinActivate Path of Exile
-        tempclipboard := Clipboard
-        cmd := getstr("Inv") IDCopy(n)
-        Clipboard := cmd
-        ClipWait,1
-        Send {Enter}
-        Send ^a
-        Send ^v
-        Send {Enter}
-        Sleep 50
-        Clipboard := tempclipboard
-        ClipWait,1
-        Return
-    }
-    Return 
-}
 
 Thanks(){
     IfWinExist Path of Exile
@@ -86,8 +55,6 @@ Invite(){
     }
     Return
 }
-
-
 
 Reply(){
     IfWinExist Path of Exile
@@ -131,6 +98,16 @@ OosCommand(){
     Return
 }
 
+CheckRemaining(){
+    IfWinExist Path of Exile
+    {
+        WinActivate Path of Exile
+        Send {Enter}
+        Send % Copy("Rem")
+    }
+    Return
+}
+
 FastLogOut(){
     IfWinExist Path of Exile
     {
@@ -155,14 +132,17 @@ CheckRemaining(){
 ;-----For some features--END--;
 ;---------------------------------------------------------;
 ;-----For App function--START--;
+
 save(){
     if HotkeyNoConflict()
     {
         MsgBox, 270336 , 儲存, 儲存成功!`n即將自動重載...,0.75
         Gui, Submit, NoHide
         Reload
-    }Else{
+    }Else if (!HotkeyNoConflict()){
         MsgBox, 270352 , 儲存, 儲存失敗!`n有熱鍵尚未設定
+    }Else{
+        MsgBox, 270352 , 儲存, 儲存失敗!
     }
     Return
 }
@@ -186,6 +166,40 @@ TurnOffHotKey(){
 
 ;-----For App function--END--;
 ;---------------------------------------------------------;
+;----------------For Trade Partner --BELOW-------------;
+;-----For TP function--START--;
+IDCopy(i){
+    clipboard := i
+    ClipWait,1
+    Return i
+}
+TPPM(i){
+    PM := "@" . i . " "
+    clipboard := PM
+    ClipWait,1
+    Return i
+}
+
+TPInvite(n){
+    IfWinExist Path of Exile
+    {
+        WinActivate Path of Exile
+        tempclipboard := Clipboard
+        cmd := getstr("Inv") IDCopy(n)
+        Clipboard := cmd
+        ClipWait,1
+        Send {Enter}
+        Send ^a
+        Send ^v
+        Send {Enter}
+        Sleep 50
+        Clipboard := tempclipboard
+        ClipWait,1
+        Return
+    }
+    Return 
+}
+;-----For TP function--END--;
 ;-----For Set Log Path--START--;
 LogPathFinder(){
     if FileExist(LogPath){
@@ -256,6 +270,7 @@ FindLog(){
 ;-----For TradePartner Data--START--;
 Global officialText := "你好，我想購買,標價,(倉庫頁,位置:"        ;自己抓出官方交易市集的密語格式(當定位點的字串)
 Global OfficialTextList := StrSplit(OfficialText, ",")            ;把上面那串字以逗號分隔成 一個array
+
 CheckLogChange(LogFile,ByRef PreviousSize:=0){
     FileEncoding, UTF-8
     FileGetSize nowsize, %LogFile%
@@ -382,4 +397,5 @@ GetPrice(content,log:=""){
     Return, PriceContent
 }
 ;-----For TradePartner Data--START--;
+;----------------For Trade Partner --ABOVE-------------;
 ;---------------------------------------------------------;
