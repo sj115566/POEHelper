@@ -156,10 +156,26 @@ CheckRemaining(){
 ;---------------------------------------------------------;
 ;-----For App function--START--;
 save(){
-    MsgBox, 270336 , 儲存, 儲存成功!`n即將自動重載...,0.75
-    Gui, Submit, NoHide
-    Reload
+    if HotkeyNoConflict()
+    {
+        MsgBox, 270336 , 儲存, 儲存成功!`n即將自動重載...,0.75
+        Gui, Submit, NoHide
+        Reload
+    }Else{
+        MsgBox, 270352 , 儲存, 儲存失敗!`n有熱鍵尚未設定
+    }
     Return
+}
+
+HotkeyNoConflict(){
+    For k,v in NewKeyList
+    {
+        if v{
+            Return True
+        }Else{
+            Return False
+        }
+    }
 }
 
 TurnOffHotKey(){
@@ -306,7 +322,7 @@ GetTimecode(content,log:=""){
     Time := SubStr(content,11)
     FileAppend, Date: %Date% `, Time: %Time%`n , %log%
 ;    Return, "日期: "Date . "`n" . "時間: "Time
-    Return, {Date:Date,Time:Time}
+    Return, {Date:Date,Time:Time }
 }
 
 GetPlayerID(content,log:=""){

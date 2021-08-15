@@ -27,15 +27,23 @@ window:
     Gui Add, Button, gEditWindow    x310 y255 w100 h36 , 編輯熱鍵
     Gui Add, Button, gEditLogPath    x310 y209 w100 h36 , 編輯Log路徑
     Gui Add, Text, x310 y325 w100 h36, 調整視窗透明度
-    Gui Add, Slider, vSldr gopacity x300 y352 w120 h32, %opacity%
-    Gui Add, Text, x155 y35  w70 h21 Center ,%Key_ReplyWait%
-    Gui Add, Text, x155 y81  w70 h21 Center ,%Key_Invite%
-    Gui Add, Text, x155 y127 w70 h21 Center ,%Key_Hideout%
-    Gui Add, Text, x155 y177 w70 h21 Center ,%Key_AFK%
-    Gui Add, Text, x155 y220 w70 h21 Center ,%Key_Tradewith%
-    Gui Add, Text, x155 y264 w70 h21 Center ,%Key_ReplyThank%
-    Gui Add, Text, x155 y312 w70 h21 Center ,%Key_Logout%
-    Gui Add, Text, x155 y356 w70 h21 Center ,%Key_OOS%
+    Gui Add, Slider, Center NoTicks AltSubmit vSldr gopacity x300 y352 w120 h32, %opacity%
+    Gui Add, Hotkey, x174 y31  w70 h21 vDisplayKey_ReplyWait ,% Key_ReplyWait
+    Gui Add, Hotkey, x174 y77  w70 h21 vDisplayKey_Invite ,% Key_Invite
+    Gui Add, Hotkey, x174 y123 w70 h21 vDisplayKey_Hideout ,% Key_Hideout
+    Gui Add, Hotkey, x174 y169 w70 h21 vDisplayKey_AFK ,% Key_AFK
+    Gui Add, Hotkey, x174 y215 w70 h21 vDisplayKey_Tradewith ,% Key_Tradewith
+    Gui Add, Hotkey, x174 y261 w70 h21 vDisplayKey_ReplyThank ,% Key_ReplyThank
+    Gui Add, Hotkey, x174 y307 w70 h21 vDisplayKey_Logout ,% Key_Logout
+    Gui Add, Hotkey, x174 y353 w70 h21 vDisplayKey_OOS ,% Key_OOS
+    GuiControl Disable, DisplayKey_ReplyWait
+    GuiControl Disable, DisplayKey_Invite
+    GuiControl Disable, DisplayKey_Hideout
+    GuiControl Disable, DisplayKey_AFK
+    GuiControl Disable, DisplayKey_Tradewith
+    GuiControl Disable, DisplayKey_ReplyThank
+    GuiControl Disable, DisplayKey_Logout
+    GuiControl Disable, DisplayKey_OOS
     Gui Show, w439 h409, %WindowTitle%
     Return
     
@@ -50,26 +58,35 @@ window:
 EditWindow:
 {
     TurnOffHotKey()
+    NewKeyList := KeyList
     Gui +Disabled
     Gui,EditGui:+OwnerMain -SysMenu +AlwaysOnTop +OwnDialogs
     Gui EditGui:Font, s9 w500, Segoe UI
-    Gui EditGui:Add, Text,x21  y34  w130 h36, 自動回覆：稍等
-    Gui EditGui:Add, Text,x21  y80  w130 h36, 邀請組隊
-    Gui EditGui:Add, Text,x21  y127 w130 h36, 回藏身處
-    Gui EditGui:Add, Text,x21  y173 w130 h36, AFK
-    Gui EditGui:Add, Text,x21  y219 w130 h36, 交易
-    Gui EditGui:Add, Text,x21  y265 w130 h36, 自動回覆：感謝
-    Gui EditGui:Add, Text,x21  y311 w130 h36, 快速登出
-    Gui EditGui:Add, Text,x21  y356 w130 h36, OOS
-    Gui EditGui:Add, Button,x310 y301 w100 h36 gSave , 儲存
-    Gui EditGui:Add, Hotkey, x174 y31  w70 h21 vKey_ReplyWait,% Key_ReplyWait
-    Gui EditGui:Add, Hotkey, x174 y77  w70 h21 vKey_Invite,% Key_Invite
-    Gui EditGui:Add, Hotkey, x174 y123 w70 h21 vKey_Hideout,% Key_Hideout
-    Gui EditGui:Add, Hotkey, x174 y169 w70 h21 vKey_AFK,% Key_AFK
-    Gui EditGui:Add, Hotkey, x174 y215 w70 h21 vKey_Tradewith,% Key_Tradewith
-    Gui EditGui:Add, Hotkey, x174 y261 w70 h21 vKey_ReplyThank,% Key_ReplyThank
-    Gui EditGui:Add, Hotkey, x174 y307 w70 h21 vKey_Logout,% Key_Logout
-    Gui EditGui:Add, Hotkey, x174 y353 w70 h21 vKey_OOS,% Key_OOS
+    Gui EditGui:Add, Text,x21 y34  w130 h36, 自動回覆：稍等
+    Gui EditGui:Add, Text,x21 y80  w130 h36, 邀請組隊
+    Gui EditGui:Add, Text,x21 y127 w130 h36, 回藏身處
+    Gui EditGui:Add, Text,x21 y173 w130 h36, AFK
+    Gui EditGui:Add, Text,x21 y219 w130 h36, 交易
+    Gui EditGui:Add, Text,x21 y265 w130 h36, 自動回覆：感謝
+    Gui EditGui:Add, Text,x21 y311 w130 h36, 快速登出
+    Gui EditGui:Add, Text,x21 y356 w130 h36, OOS 
+    Gui EditGui:Add, Button,x131 y30 w40 h23 gDefaultReplyWait , 預設
+    Gui EditGui:Add, Button,x131 y76 w40 h23 gDefaultInvite , 預設
+    Gui EditGui:Add, Button,x131 y122 w40 h23 gDefaultHideout , 預設
+    Gui EditGui:Add, Button,x131 y168 w40 h23 gDefaultAFK , 預設
+    Gui EditGui:Add, Button,x131 y214 w40 h23 gDefaultTradewith , 預設
+    Gui EditGui:Add, Button,x131 y260 w40 h23 gDefaultReplyThank , 預設
+    Gui EditGui:Add, Button,x131 y306 w40 h23 gDefaultLogout , 預設
+    Gui EditGui:Add, Button,x131 y352 w40 h23 gDefaultOOS , 預設
+    Gui EditGui:Add, Button,x310 y329 w100 h45 gSave , 儲存
+    Gui EditGui:Add, Hotkey, x174 y31  w70 h21 vNewKey_ReplyWait gCheckHotkeyReplyWait,% Key_ReplyWait
+    Gui EditGui:Add, Hotkey, x174 y77  w70 h21 vNewKey_Invite gCheckHotkeyInvite,% Key_Invite
+    Gui EditGui:Add, Hotkey, x174 y123 w70 h21 vNewKey_Hideout gCheckHotkeyHideout,% Key_Hideout
+    Gui EditGui:Add, Hotkey, x174 y169 w70 h21 vNewKey_AFK gCheckHotkeyAFK,% Key_AFK
+    Gui EditGui:Add, Hotkey, x174 y215 w70 h21 vNewKey_Tradewith gCheckHotkeyTradewith,% Key_Tradewith
+    Gui EditGui:Add, Hotkey, x174 y261 w70 h21 vNewKey_ReplyThank gCheckHotkeyReplyThank,% Key_ReplyThank
+    Gui EditGui:Add, Hotkey, x174 y307 w70 h21 vNewKey_Logout gCheckHotkeyLogout,% Key_Logout
+    Gui EditGui:Add, Hotkey, x174 y353 w70 h21 vNewKey_OOS gCheckHotkeyOOS,% Key_OOS
     Gui EditGui:Add, Edit,Limit x260 y31 w150 h21 vStr_Wait,% Str_Wait
     Gui EditGui:Add, Edit,Limit x260 y261 w150 h21 vStr_Thank,% Str_Thank
     Gui,EditGui:show,w439 h409,Edithotkey
@@ -84,12 +101,216 @@ opacity:
     Return
 }
 ;-----透明度調整--END---;
-;-----功能--START---;
+;-----熱鍵檢查功能--START---;
 Save:
 {
     save()
     Return
 }
+CheckHotkeyReplyWait:
+{
+    NewKeyList[1] := NewKey_ReplyWait
+    For k,v in NewKeyList
+        if (A_Index = 1){
+            Continue
+        }Else if(v = NewKey_ReplyWait){ 
+            CoordMode ToolTip,Window
+            ToolTip % NewKey_ReplyWait " 與 " FeatureList[k]" 衝突!請重新設定",174 ,31
+            GuiControl,,NewKey_ReplyWait
+            NewKeyList[1] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_ReplyWait := NewKey_ReplyWait
+        }
+    Return
+}
+CheckHotkeyInvite:
+{
+    NewKeyList[2] := NewKey_Invite
+    For k,v in NewKeyList
+        if (A_Index = 2){
+            Continue
+        }Else if(v = NewKey_Invite){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_Invite% 衝突!請重新設定,174 ,77
+            GuiControl,,NewKey_Invite
+            NewKeyList[2] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_Invite := NewKey_Invite
+        }
+    Return
+}
+CheckHotkeyHideout:
+{
+    NewKeyList[3] := NewKey_Hideout
+    For k,v in NewKeyList
+        if (A_Index = 3){
+            Continue
+        }Else if(v = NewKey_Hideout){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_Hideout% 衝突!請重新設定,174 ,123
+            GuiControl,,NewKey_Hideout
+            NewKeyList[3] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_Hideout := NewKey_Hideout
+        }
+    Return
+}
+CheckHotkeyAFK:
+{
+    NewKeyList[4] := NewKey_AFK
+    For k,v in NewKeyList
+        if (A_Index = 4){
+            Continue
+        }Else if(v = NewKey_AFK){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_AFK% 衝突!請重新設定,174 ,169
+            GuiControl,,NewKey_AFK
+            NewKeyList[4] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_AFK := NewKey_AFK
+        }
+    Return
+}
+CheckHotkeyTradewith:
+{
+    NewKeyList[5] := NewKey_Tradewith
+    For k,v in NewKeyList
+        if (A_Index = 5){
+            Continue
+        }Else if(v = NewKey_Tradewith){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_Tradewith% 衝突!請重新設定,174 ,215
+            GuiControl,,NewKey_Tradewith
+            NewKeyList[5] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_Tradewith := NewKey_Tradewith
+        }
+    Return
+}
+CheckHotkeyReplyThank:
+{
+    NewKeyList[6] := NewKey_ReplyThank
+    For k,v in NewKeyList
+        if (A_Index = 6){
+            Continue
+        }Else if(v = NewKey_ReplyThank){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_ReplyThank% 衝突!請重新設定,174 ,261
+            GuiControl,,NewKey_ReplyThank
+            NewKeyList[6] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_ReplyThank := NewKey_ReplyThank
+        }
+    Return
+}
+CheckHotkeyLogout:
+{
+    NewKeyList[7] := NewKey_Logout
+    For k,v in NewKeyList
+        if (A_Index = 7){
+            Continue
+        }Else if(v = NewKey_Logout){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_Logout% 衝突!請重新設定,174 ,307
+            GuiControl,,NewKey_Logout
+            NewKeyList[7] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_Logout := NewKey_Logout
+        }
+    Return
+}
+CheckHotkeyOOS:
+{
+    NewKeyList[8] := NewKey_OOS
+    For k,v in NewKeyList
+        if (A_Index = 8){
+            Continue
+        }Else if(v = NewKey_OOS){ 
+            CoordMode ToolTip,Window
+            ToolTip,%NewKey_OOS% 衝突!請重新設定,174 ,353
+            GuiControl,,NewKey_OOS
+            NewKeyList[8] := ""
+            SetTimer, RemoveToolTip, -1000
+        }Else {
+            Key_OOS := NewKey_OOS
+        }
+    Return
+}
+;-----熱鍵檢查功能--END---;
+;-----回復預設熱鍵--START---;
+DefaultReplyWait:
+{
+    GuiControl,,NewKey_ReplyWait,F2
+    Key_ReplyWait := "F2"
+    GuiControlGet, outputvar,,NewKey_ReplyWait
+    NewKeyList[1]:=outputvar
+    Return
+}
+DefaultInvite:
+{
+    GuiControl,,NewKey_Invite,F3
+    Key_Invite := "F3"
+    GuiControlGet, outputvar,,NewKey_Invite
+    NewKeyList[2]:=outputvar
+    Return
+}
+DefaultHideout:
+{
+    GuiControl,,NewKey_Hideout,F6
+    Key_Hideout := "F6"
+    GuiControlGet, outputvar,,NewKey_Hideout
+    NewKeyList[3]:=outputvar
+    Return
+}
+DefaultAFK:
+{
+    GuiControl,,NewKey_AFK,F11
+    Key_AFK := "F11"
+    GuiControlGet, outputvar,,NewKey_AFK
+    NewKeyList[4]:=outputvar
+    Return
+}
+DefaultTradewith:
+{
+    GuiControl,,NewKey_Tradewith,F5
+    Key_Tradewith := "F5"
+    GuiControlGet, outputvar,,NewKey_Tradewith
+    NewKeyList[5]:=outputvar
+    Return
+}
+DefaultReplyThank:
+{
+    GuiControl,,NewKey_ReplyThank,F4
+    Key_ReplyThank := "F4"
+    GuiControlGet, outputvar,,NewKey_ReplyThank
+    NewKeyList[6]:=outputvar
+    Return
+}
+DefaultLogout:
+{
+    GuiControl,,NewKey_Logout,F7
+    Key_Logout := "F7"
+    GuiControlGet, outputvar,,NewKey_Logout
+    NewKeyList[7]:=outputvar
+    Return
+}
+DefaultOOS:
+{
+    GuiControl,,NewKey_OOS,F12
+    Key_OOS := "F12"
+    GuiControlGet, outputvar,,NewKey_OOS
+    NewKeyList[8]:=outputvar
+    Return
+}
+;-----回復預設熱鍵--END---;
+;-----功能--START---;
 Reply:
 {
     Reply()
