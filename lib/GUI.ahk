@@ -1,41 +1,42 @@
 ﻿;-----MainWindow--START---;
 window:
 {
-    ReadSettings( Obj_DefaultSetting )
-
     WindowTitle = POE小幫手-131
     CustomColor =  White 
     opacity = 255
     opacityPercent = 50
-
+    MainWinWidth = 440
+    MainWinHeight = 450
     
     Gui Main:Default
     Gui +LastFound +OwnDialogs +LabelMain
     WinSet, Transparent,%opacity% 
     Gui Color, %CustomColor%
     Gui Font, s9, Segoe UI
-    Gui Add, GroupBox, x7 y3 w424 h394 +Center, %WindowTitle%
-    Gui Add, Button, gReply         x21  y25  w130 h36, 自動回覆：稍等
-    Gui Add, Button, gInvite        x21  y71  w130 h36, 邀請組隊
-    Gui Add, Button, gHideout       x21  y117 w130 h36, 回藏身處
-    Gui Add, Button, gAfk           x21  y163 w130 h36, AFK
-    Gui Add, Button, gTrade         x21  y209 w130 h36, 交易
-    Gui Add, Button, gThanks        x21  y255 w130 h36, 自動回覆：感謝
-    Gui Add, Button, gFastLogOut    x21  y301 w130 h36, 快速登出
-    Gui Add, Button, gOosCommand    x21  y347 w130 h36, OOS
-    Gui Add, Button, gTradePartner  x310 y25  w100 h36, 交易夥伴
-    Gui Add, Button, gEditWindow    x310 y255 w100 h36 , 編輯熱鍵
-    Gui Add, Button, gEditLogPath    x310 y209 w100 h36 , 編輯Log路徑
-    Gui Add, Text, x310 y325 w100 h36, 調整視窗透明度
-    Gui Add, Slider, Center NoTicks AltSubmit vSldr gopacity x300 y352 w120 h32, %opacity%
-    Gui Add, Hotkey, x174 y31  w70 h21 vDisplayKey_ReplyWait ,% Key_ReplyWait
-    Gui Add, Hotkey, x174 y77  w70 h21 vDisplayKey_Invite ,% Key_Invite
-    Gui Add, Hotkey, x174 y123 w70 h21 vDisplayKey_Hideout ,% Key_Hideout
-    Gui Add, Hotkey, x174 y169 w70 h21 vDisplayKey_AFK ,% Key_AFK
-    Gui Add, Hotkey, x174 y215 w70 h21 vDisplayKey_Tradewith ,% Key_Tradewith
-    Gui Add, Hotkey, x174 y261 w70 h21 vDisplayKey_ReplyThank ,% Key_ReplyThank
-    Gui Add, Hotkey, x174 y307 w70 h21 vDisplayKey_Logout ,% Key_Logout
-    Gui Add, Hotkey, x174 y353 w70 h21 vDisplayKey_OOS ,% Key_OOS
+    Gui Add, GroupBox, x7 y3 w424 h440 +Center, %WindowTitle%
+    Gui Add, Button, gReply          x21  y25  w100 h36, 自動回覆：稍等
+    Gui Add, Button, gInvite         x21  y71  w100 h36, 邀請組隊
+    Gui Add, Button, gHideout        x21  y117 w100 h36, 回藏身處
+    Gui Add, Button, gAfk            x21  y163 w100 h36, AFK
+    Gui Add, Button, gTrade          x21  y209 w100 h36, 交易
+    Gui Add, Button, gThanks         x21  y255 w100 h36, 自動回覆：感謝
+    Gui Add, Button, gFastLogOut     x21  y301 w100 h36, 快速登出
+    Gui Add, Button, gOosCommand     x21  y347 w100 h36, OOS
+    Gui Add, Button, gCheckRemaining x21  y393 w100 h36, 剩餘怪物
+    Gui Add, Button, gTradePartner   x310 y25  w100 h36, 交易夥伴
+    Gui Add, Button, gEditLogPath    x310 y255 w100 h36 , 編輯Log路徑
+    Gui Add, Button, gEditWindow     x310 y301 w100 h36 , 編輯熱鍵
+    Gui Add, Text, x310 y371 w100 h36, 調整視窗透明度
+    Gui Add, Slider, Center NoTicks AltSubmit vSldr gopacity x300 y398 w120 h32, %opacity%
+    Gui Add, Hotkey, x130 y31  w50 h21 vDisplayKey_ReplyWait ,% Key_ReplyWait
+    Gui Add, Hotkey, x130 y77  w50 h21 vDisplayKey_Invite ,% Key_Invite
+    Gui Add, Hotkey, x130 y123 w50 h21 vDisplayKey_Hideout ,% Key_Hideout
+    Gui Add, Hotkey, x130 y169 w50 h21 vDisplayKey_AFK ,% Key_AFK
+    Gui Add, Hotkey, x130 y215 w50 h21 vDisplayKey_Tradewith ,% Key_Tradewith
+    Gui Add, Hotkey, x130 y261 w50 h21 vDisplayKey_ReplyThank ,% Key_ReplyThank
+    Gui Add, Hotkey, x130 y307 w50 h21 vDisplayKey_Logout ,% Key_Logout
+    Gui Add, Hotkey, x130 y353 w50 h21 vDisplayKey_OOS ,% Key_OOS
+    Gui Add, Hotkey, x130 y399 w50 h21 vDisplayKey_CheckRemain ,% Key_CheckRemain
     GuiControl Disable, DisplayKey_ReplyWait
     GuiControl Disable, DisplayKey_Invite
     GuiControl Disable, DisplayKey_Hideout
@@ -44,15 +45,19 @@ window:
     GuiControl Disable, DisplayKey_ReplyThank
     GuiControl Disable, DisplayKey_Logout
     GuiControl Disable, DisplayKey_OOS
-    Gui Show, w439 h409, %WindowTitle%
+    GuiControl Disable, DisplayKey_CheckRemain
+    Gui Show, x%MainWin_X% y%MainWin_Y% w%MainWinWidth% h%MainWinHeight%, %WindowTitle%
     Return
-    
-    MainClose:
-    ReadSettings( Obj_DefaultSetting )
-    ExitApp
-
-;-----MainWindow END-----;
 }
+
+MainClose:
+{
+    WinGetPos, MainWin_X, MainWin_Y, , ,%WindowTitle%
+    ExitApp
+}
+;-----MainWindow END-----;
+
+
 
 ;-----編輯視窗--START---;
 EditWindow:
@@ -89,7 +94,7 @@ EditWindow:
     Gui EditGui:Add, Hotkey, x174 y353 w70 h21 vNewKey_OOS gCheckHotkeyOOS,% Key_OOS
     Gui EditGui:Add, Edit,Limit x260 y31 w150 h21 vStr_Wait,% Str_Wait
     Gui EditGui:Add, Edit,Limit x260 y261 w150 h21 vStr_Thank,% Str_Thank
-    Gui,EditGui:show,w439 h409,Edithotkey
+    Gui,EditGui:show,x%MainWin_X% y%MainWin_Y% w439 h409,Edithotkey
     Return 
 }
 ;-----編輯視窗--END---;
@@ -102,11 +107,7 @@ opacity:
 }
 ;-----透明度調整--END---;
 ;-----熱鍵檢查功能--START---;
-Save:
-{
-    save()
-    Return
-}
+
 CheckHotkeyReplyWait:
 {
     NewKeyList[1] := NewKey_ReplyWait
@@ -311,6 +312,16 @@ DefaultOOS:
 }
 ;-----回復預設熱鍵--END---;
 ;-----功能--START---;
+RemoveTooltip:
+{
+    ToolTip
+    Return
+}
+Save:
+{
+    save()
+    Return
+}
 Reply:
 {
     Reply()
@@ -356,6 +367,12 @@ OosCommand:
     Return
 }
 
+CheckRemaining:
+{
+    CheckRemaining()
+    Return
+}
+
 EditLogPath:
 {
     LogPathFinder()
@@ -368,19 +385,15 @@ TradePartner:
 {
     GuiControl Text, 交易夥伴, 交易夥伴`n(已開啟)
     GuiControl Disable , 交易夥伴`n(已開啟)
-    
     FileGetSize presize, %LogPath%
-    TPTitle:="交易小幫手 - c09y-001"
+    TPTitle:="交易夥伴"
     VarEvent:=""
     waiting :=0
     IsFold := False
     VFB := "摺疊"
     ColWidth := [20,145,205,100,75,42,42]
-    ;BuyerInfo := ["一二三四七八九十一二三四五六","覺醒˙進佔物理傷害輔助 (L21Q20)","[具4] 左11 上22","300 崇高實"]
-
     Gui Partner:+LabelPartner +AlwaysOnTop +OwnDialogs
     Gui Partner:Default
-
     /*  include this section for separate debug
     #Include %A_ScriptDir%\\lib\LV_EX.ahk
 
@@ -397,22 +410,15 @@ TradePartner:
     Gui Add, GroupBox, x0 y40 w658 h200 hwndPLV
     Gui Add, ListView, xp+5 yp+5 w650 R10 Count10 +VScroll +Grid -LV0x10 -Multi +NoSortHdr +AltSubmit hwndHLV ggevent, #|購買者|物品|倉庫頁及位置|價格|組隊|刪除|
     LV_SetImageList( DllCall( "ImageList_Create",Int,1, Int,30, Int,0x18, Int,1, Int,1 ), 1 )
-
     SetTimer,check,10
     Gosub KeepColW
     Gosub TPinit
-    Gui Partner:Show, AutoSize,% TPTitle
+    Gui Partner:Show, x%TPWin_X% y%TPWin_Y% AutoSize,% TPTitle
     Gui Main:Default
     Return
-    
 }
 
-test:
-{
-    For k, v in BuyerInfo
-        MsgBox % k "=" v.Length()
-    Return
-}
+
 
 hide&show:
 {
@@ -492,11 +498,7 @@ gevent:
     Gosub KeepColW
     Return
 }
-RemoveTooltip:
-{
-    ToolTip
-    Return
-}
+
 
 check:
 {
@@ -515,27 +517,6 @@ TPAddData:
     GuiControl , Text, lwaiting, %waiting% 筆交易待處理
     LV_Add(,waiting . " ",BuyerInfo.ID[BuyerInfo.ID.MaxIndex()],BuyerInfo.Item[BuyerInfo.Item.MaxIndex()],BuyerInfo.Slashtab[BuyerInfo.Slashtab.MaxIndex()] . "`n" . BuyerInfo.Pos[BuyerInfo.Pos.MaxIndex()],BuyerInfo.Price[BuyerInfo.Price.MaxIndex()],"邀請","X")
     SetTimer,check,on
-    Return
-}
-DebugAddData:
-{    
-    waiting+=1
-    GuiControl , Text, lwaiting, %waiting% 筆交易待處理
-    LV_Add(,waiting . " ",BuyerInfo.ID.1,BuyerInfo.Item.1,BuyerInfo.Slashtab.1 . "`n" . BuyerInfo.Pos.1,BuyerInfo.Price.1,"邀請","X")
-    Return
-}
-
-DebugDel:
-{
-    LV_GetText(deletable,1)
-    if deletable
-    {
-        LV_Delete(1)
-        waiting-=1
-        GuiControl , Text, lwaiting, %waiting% 筆交易待處理
-        Loop %waiting%
-            LV_Modify(A_Index,,A_Index)
-    }
     Return
 }
 
@@ -569,9 +550,39 @@ TPinit:
     }
     Return
 }
+/* For debug buttons
+test:
+{
+    For k, v in BuyerInfo
+        MsgBox % k "=" v.Length()
+    Return
+}
+DebugAddData:
+{    
+    waiting+=1
+    GuiControl , Text, lwaiting, %waiting% 筆交易待處理
+    LV_Add(,waiting . " ",BuyerInfo.ID.1,BuyerInfo.Item.1,BuyerInfo.Slashtab.1 . "`n" . BuyerInfo.Pos.1,BuyerInfo.Price.1,"邀請","X")
+    Return
+}
+
+DebugDel:
+{
+    LV_GetText(deletable,1)
+    if deletable
+    {
+        LV_Delete(1)
+        waiting-=1
+        GuiControl , Text, lwaiting, %waiting% 筆交易待處理
+        Loop %waiting%
+            LV_Modify(A_Index,,A_Index)
+    }
+    Return
+}
+*/
 
 PartnerClose:
 GuiControl Main:Enable ,交易夥伴`n(已開啟)
 GuiControl Main:Text ,交易夥伴`n(已開啟),交易夥伴
+WinGetPos, TPWin_X, TPWin_Y, , ,%TPTitle%
 Gui Partner:Destroy
 ;-----交易夥伴--END---;

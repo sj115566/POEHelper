@@ -1,4 +1,8 @@
-﻿Obj_DefaultSetting:={   Key_ReplyWait   : "F2"
+﻿Obj_DefaultSetting:={   MainWin_X       : Floor((A_ScreenWidth-440)/20)*15
+                      , MainWin_Y       : Floor((A_ScreenHeight-410)/20)*10
+                      , TPWin_X         : Floor((A_ScreenWidth-675)/20)*19
+                      , TPWin_Y         : Floor((A_ScreenHeight-275)/20)*8
+                      , Key_ReplyWait   : "F2"
                       , Key_Invite      : "F3"
                       , Key_Hideout     : "F6"
                       , Key_AFK         : "F11"
@@ -6,11 +10,11 @@
                       , Key_ReplyThank  : "F4"
                       , Key_Logout      : "F7"
                       , Key_OOS         : "F12"
+                      , Key_CheckRemain : "F9"
                       , LogPath         : "C:\Program Files (x86)\Garena\32808"              
                       , Str_Wait        : "稍等喔~"
                       , Str_Thank       : "謝謝~" }
-
-ReadSettings(Obj_DefaultSetting)
+ReadSettings( Obj_DefaultSetting )
 
 ReadSettings(obj_default = "") {
 	static iniFile := SubStr(A_ScriptFullPath, 1, -StrLen(A_ScriptName)) "setting.ini"
