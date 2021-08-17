@@ -56,8 +56,8 @@ ReadSettings(obj_default = "") {
     ; =================================
 	;		自訂按鍵綁定功能
 	; =================================
-    KeyList := [Key_ReplyWait,Key_Invite,Key_Hideout,Key_AFK,Key_Tradewith,Key_ReplyThank,Key_Logout,Key_OOS]
-    FeatureList := ["Reply","Invite","Hideout","Afk","Trade","Thanks","FastLogOut","OosCommand"]
+    KeyList := [Key_ReplyWait,Key_Invite,Key_Hideout,Key_AFK,Key_Tradewith,Key_ReplyThank,Key_Logout,Key_OOS,Key_CheckRemain]
+    FeatureList := ["Reply","Invite","Hideout","Afk","Trade","Thanks","FastLogOut","OosCommand","CheckRemaining"]
     loop % KeyList.Length()
         Hotkey ,% KeyList[A_Index] ,% FeatureList[A_Index]
     
